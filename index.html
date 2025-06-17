@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>GXROZ PANEL FREE v.1</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .menu-box {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      width: 300px;
+    }
+
+    .menu-box h2 {
+      color: red;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .menu-box label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    .menu-box select, input[type="checkbox"] {
+      margin-top: 5px;
+    }
+
+    .slider {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .note {
+      font-size: 12px;
+      color: gray;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-box">
+    <h2>GXROZ PANEL FREE v.1</h2>
+    
+    <label><input type="checkbox" checked> เปิดดูดหัว</label>
+
+    <label>เลือกกระดับยิงหัว
+      <select>
+        <option>HIGH = หัว</option>
+        <option>MEDIUM = คอ</option>
+        <option>LOW = อก</option>
+      </select>
+    </label>
+
+    <label>เลือกโหมดที่เล่น
+      <select>
+        <option>1-1 สร้างห้อง</option>
+        <option>2-2 สร้างห้อง</option>
+        <option>3-3 สร้างห้อง</option>
+        <option>4-4 สร้างห้อง</option>
+      </select>
+    </label>
+
+    <label><input type="checkbox"> กระสุนตรง 90%</label>
+    <label><input type="checkbox"> ช่วยลาก 90%</label>
+    <label><input type="checkbox"> จอไวDIP 1600/label>
+    <label><input type="checkbox"> ปุ่มตอบสนองไว</label>
+
+    <div class="note">กันแบน - กันค้า - กันรายงาน</div>
+
+    <input class="slider" type="range" min="0" max="100" value="50">
+  </div>
+</body>
+</html>
