@@ -2,83 +2,150 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>GXROZ PANEL FREE v.1</title>
+  <title>GXROZ PANEL V1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
-      font-family: sans-serif;
-      background: #f5f5f5;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://i.pinimg.com/736x/25/f5/ad/25f5ad57235e105d525e67e3de04894e.jpg') no-repeat center center fixed;
+      background-size: cover;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #fff;
       display: flex;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
     }
 
-    .menu-box {
-      background: white;
-      padding: 20px 30px;
+    .panel {
+      background: rgba(27, 27, 27, 0.9) url('https://i.pinimg.com/736x/25/f5/ad/25f5ad57235e105d525e67e3de04894e.jpg') no-repeat center center;
+      background-size: cover;
+      border: 2px solid #00ff88;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-      width: 300px;
+      padding: 30px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 15px rgba(0,255,136,0.4);
     }
 
-    .menu-box h2 {
-      color: red;
+    .panel h2 {
       text-align: center;
+      color: #00ff88;
       margin-bottom: 20px;
     }
 
-    .menu-box label {
+    .panel img {
       display: block;
-      margin-top: 10px;
+      margin: 0 auto 20px;
+      max-width: 100%;
+      border-radius: 10px;
     }
 
-    .menu-box select, input[type="checkbox"] {
-      margin-top: 5px;
+    .panel label {
+      display: block;
+      margin: 15px 0 5px;
     }
 
-    .slider {
+    .panel select,
+    .panel input[type="text"],
+    .panel input[type="number"] {
       width: 100%;
-      margin-top: 20px;
+      padding: 8px;
+      background: #222;
+      border: 1px solid #00ff88;
+      border-radius: 5px;
+      color: #00ff88;
     }
 
-    .note {
-      font-size: 12px;
-      color: gray;
-      margin-top: 10px;
+    .panel input[type="checkbox"] {
+      transform: scale(1.2);
+      margin-left: 10px;
+    }
+
+    .status {
+      margin-top: 20px;
+      text-align: center;
+      color: #00ff88;
+      font-weight: bold;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <div class="menu-box">
-    <h2>GXROZ PANEL FREE v.1</h2>
-    
-    <label><input type="checkbox" checked> เปิดดูดหัว</label>
+  <div class="panel">
+    <img src="https://pic.in.th/image/GalaxyX.X9SXeL" alt="GXROZ PANEL">
+    <h2>GXROZ PANEL V1</h2>
 
-    <label>เลือกกระดับยิงหัว
-      <select>
-        <option>HIGH = หัว</option>
-        <option>MEDIUM = คอ</option>
-        <option>LOW = อก</option>
-      </select>
+    <label for="aimbot-mode">AIMBOT MODE</label>
+    <select id="aimbot-mode">
+      <option selected>AIMBOT 100%</option>
+      <option>AIMBOT 75%</option>
+      <option>AIMBOT 50%</option>
+    </select>
+
+    <label>
+      AIMBOT
+      <input type="checkbox" id="aimbot-toggle" checked>
     </label>
 
-    <label>เลือกโหมดที่เล่น
-      <select>
-        <option>1-1 สร้างห้อง</option>
-        <option>2-2 สร้างห้อง</option>
-        <option>3-3 สร้างห้อง</option>
-        <option>4-4 สร้างห้อง</option>
-      </select>
+    <label>
+      กระสุนตรง
+      <input type="checkbox" id="accurate-bullets" checked>
     </label>
 
-    <label><input type="checkbox"> กระสุนตรง 90%</label>
-    <label><input type="checkbox"> ช่วยลาก 90%</label>
-    <label><input type="checkbox"> จอไวDIP 1600</label>
-    <label><input type="checkbox"> ปุ่มตอบสนองไว</label>
+    <label for="headshot-level">ปรับระดับดูดหัว</label>
+    <input type="number" id="headshot-level" placeholder="ใส่ค่า" value="0.85" step="0.01" min="0" max="1">
 
-    <div class="note">กันแบน - กันดำ - กันรายงาน</div>
-    <div class="note">GxrozShop บริการจำหน่ายไฟล์ดูดหัว</div>
+    <label for="dpi">DPI ไม่จำกัด</label>
+    <input type="number" id="dpi" placeholder="ใส่ค่า" value="1080" step="10">
+
+    <label for="recoil-reduce">ปรับลดแรงดีดปืน</label>
+    <input type="number" id="recoil-reduce" placeholder="ใส่ค่า" value="0.45" step="0.01" min="0" max="1">
+
+    <label>
+      กระสุนคง
+      <input type="checkbox" id="steady-bullets" checked>
+    </label>
+
+    <div class="status" id="status-text">
+      STATUS: ทำงานปกติออนไลน์ | GXROZSHOP
+    </div>
   </div>
+
+  <script>
+    const status = document.getElementById('status-text');
+
+    // โหลดค่าจาก localStorage ถ้ามี
+    window.addEventListener('DOMContentLoaded', () => {
+      const fields = document.querySelectorAll('input, select');
+      fields.forEach(field => {
+        const saved = localStorage.getItem(field.id);
+        if (saved !== null) {
+          if (field.type === 'checkbox') {
+            field.checked = saved === 'true';
+          } else {
+            field.value = saved;
+          }
+        }
+      });
+    });
+
+    // บันทึกค่าลง localStorage
+    document.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('input', () => {
+        if (el.id) {
+          localStorage.setItem(el.id, el.type === 'checkbox' ? el.checked : el.value);
+        }
+        status.textContent = 'STATUS: กำลังบันทึกการตั้งค่า...';
+        clearTimeout(window.statusTimeout);
+        window.statusTimeout = setTimeout(() => {
+          status.textContent = 'STATUS: ทำงานปกติออนไลน์ | GXROZSHOP';
+        }, 1500);
+      });
+    });
+  </script>
 </body>
 </html>
