@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>GXROZ PANEL V1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://i.pinimg.com/736x/25/f5/ad/25f5ad57235e105d525e67e3de04894e.jpg') no-repeat center center fixed;
+      background-size: cover;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .panel {
+      background: rgba(27, 27, 27, 0.9) url('https://i.pinimg.com/736x/25/f5/ad/25f5ad57235e105d525e67e3de04894e.jpg') no-repeat center center;
+      background-size: cover;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 2px solid #00ff88;
+      border-radius: 10px;
+      padding: 30px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 15px rgba(0,255,136,0.4);
+    }
+
+    .panel h2 {
+      text-align: center;
+      color: #00ff88;
+      margin-bottom: 20px;
+    }
+
+    .panel img {
+      display: block;
+      margin: 0 auto 20px;
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    .panel label {
+      display: block;
+      margin: 15px 0 5px;
+    }
+
+    .panel select,
+    .panel input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      background: #222;
+      border: 1px solid #00ff88;
+      border-radius: 5px;
+      color: #00ff88;
+    }
+
+    .panel input[type="checkbox"] {
+      transform: scale(1.2);
+      margin-left: 10px;
+    }
+
+    .status {
+      margin-top: 20px;
+      text-align: center;
+      color: #00ff88;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <img src="https://pic.in.th/image/GalaxyX.X9SXeL" alt="GXROZ PANEL">
+    <h2>GXROZ PANEL V1</h2>
+
+    <label for="aimbot-mode">AIMBOT MODE</label>
+    <select id="aimbot-mode">
+      <option>AIMBOT 100%</option>
+      <option>AIMBOT 75%</option>
+      <option>AIMBOT 50%</option>
+    </select>
+
+    <label>
+      AIMBOT
+      <input type="checkbox" id="aimbot-toggle">
+    </label>
+
+    <label>
+      กระสุนตรง
+      <input type="checkbox" id="accurate-bullets">
+    </label>
+
+    <label for="headshot-level">ปรับระดับดูดหัว</label>
+    <input type="text" id="headshot-level" placeholder="ใส่ค่า">
+
+    <label for="dpi">DPI ไม่จำกัด</label>
+    <input type="text" id="dpi" placeholder="ใส่ค่า">
+
+    <div class="status" id="status-text">
+      STATUS: ทำงานปกติออนไลน์ | &lt;/&gt; GXROZSHOP
+    </div>
+  </div>
+
+  <script>
+    const status = document.getElementById('status-text');
+
+    // โหลดค่าจาก localStorage ถ้ามี
+    window.addEventListener('DOMContentLoaded', () => {
+      const fields = document.querySelectorAll('input, select');
+      fields.forEach(field => {
+        const saved = localStorage.getItem(field.id);
+        if (saved !== null) {
+          if (field.type === 'checkbox') {
+            field.checked = saved === 'true';
+          } else {
+            field.value = saved;
+          }
+        }
+      });
+    });
+
+    // บันทึกค่าลง localStorage
+    document.querySelectorAll('input, select').forEach(el => {
+      el.addEventListener('input', () => {
+        if (el.id) {
+          localStorage.setItem(el.id, el.type === 'checkbox' ? el.checked : el.value);
+        }
+        status.textContent = 'STATUS: กำลังบันทึกการตั้งค่า...';
+        clearTimeout(window.statusTimeout);
+        window.statusTimeout = setTimeout(() => {
+          status.textContent = 'STATUS: ทำงานปกติออนไลน์ | GXROZSHOP';
+        }, 1500);
+      });
+    });
+  </script>
+</body>
+</html>
+
